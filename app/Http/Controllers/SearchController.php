@@ -24,7 +24,7 @@ class SearchController extends Controller
     private function searchAlbum(string $searchQuery){
         $curl = curl_init();
         curl_setopt_array($curl, array(
-            CURLOPT_URL => 'https://ws.audioscrobbler.com/2.0/?method=album.search&album=' . $searchQuery . '&api_key=' . env('LASTFM_API_KEY') . '&format=json',
+            CURLOPT_URL => 'https://ws.audioscrobbler.com/2.0/?method=album.search&album=' . urlencode($searchQuery) . '&api_key=' . env('LASTFM_API_KEY') . '&format=json',
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => '',
             CURLOPT_MAXREDIRS => 10,
@@ -43,7 +43,7 @@ class SearchController extends Controller
     private function searchArtist(string $searchQuery){
         $curl = curl_init();
         curl_setopt_array($curl, array(
-            CURLOPT_URL => 'https://ws.audioscrobbler.com/2.0/?method=artist.search&artist=' . $searchQuery . '&api_key=' . env('LASTFM_API_KEY') . '&format=json',
+            CURLOPT_URL => 'https://ws.audioscrobbler.com/2.0/?method=artist.search&artist=' . urlencode($searchQuery) . '&api_key=' . env('LASTFM_API_KEY') . '&format=json',
             CURLOPT_RETURNTRANSFER => true,
             CURLOPT_ENCODING => '',
             CURLOPT_MAXREDIRS => 10,
