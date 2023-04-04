@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\SearchController;
 use App\Http\Controllers\AlbumController;
 use App\Http\Controllers\ArtistController;
+use App\Http\Controllers\AuthController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,3 +26,8 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::get("search", [SearchController::class, 'searchAlbumArtist']);
 Route::get("album_get", [AlbumController::class, 'getAlbum']);
 Route::get("artist_get", [ArtistController::class, 'getArtist']);
+
+Route::prefix('auth')->group(function(){
+    Route::get('redirect', [AuthController::class, 'googleOathRedirect']);
+    Route::get('callback', [AuthController::class, 'googleOathCallback']);
+});
