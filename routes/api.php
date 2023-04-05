@@ -24,6 +24,7 @@ Route::middleware('auth:sanctum')->group(function (){
     });
 
     Route::apiResource('album_favorite', AlbumController::class)->except('update');
+    Route::apiResource('artist_favorite', ArtistController::class)->except('update');
 });
 
 
