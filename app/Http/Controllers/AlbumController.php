@@ -3,6 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\AlbumFavorite;
+use App\Models\User;
+use Auth;
 
 class AlbumController extends Controller
 {
@@ -43,7 +46,30 @@ class AlbumController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Store album favorite
+
+        // Verify if this album is not already saved
+        $checkFavorite = AlbumFavorite::where([
+            'created_by' => Auth::id(),
+            'mbid' => $request->input('mbid'),
+            'name' => $request->input('name'),
+            'artist' => $request->input('artist'),
+        ])->count();
+
+        if(!$checkFavorite){
+            $album = $request->except('created_by');
+            $album['created_by'] = Auth::id();
+            $favorite = AlbumFavorite::create($album);
+            return response([
+                'message' => 'Album favorited',
+                'favorite_id'  => $favorite->id,
+            ]);
+        }else{
+            return response([
+                'message' => 'Album is already your favorite'
+            ], 400);
+        }
+
     }
 
     /**
