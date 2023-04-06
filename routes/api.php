@@ -6,6 +6,7 @@ use App\Http\Controllers\SearchController;
 use App\Http\Controllers\AlbumController;
 use App\Http\Controllers\ArtistController;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\FavoriteController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,6 +26,7 @@ Route::middleware('auth:sanctum')->group(function (){
 
     Route::apiResource('album_favorite', AlbumController::class)->except('update');
     Route::apiResource('artist_favorite', ArtistController::class)->except('update');
+    Route::get('favorites', [FavoriteController::class, 'getFavorites']);
 });
 
 
