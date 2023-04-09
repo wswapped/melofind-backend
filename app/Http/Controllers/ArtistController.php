@@ -42,7 +42,7 @@ class ArtistController extends Controller
 
     public function getTracskAndAlbums(Request $request)
     {
-        $artist = urlencode($request->input("artist"));
+        $artist = $request->input("artist");
         $mbid = $request->input("mbid");
 
         $topTracks = $this->sendLastFmRequest('artist.getTopTracks', [

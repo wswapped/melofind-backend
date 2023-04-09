@@ -20,8 +20,8 @@ return new class extends Migration
             $table->string("mbid", 64)->nullable();
             $table->integer("listeners");
             $table->integer("playcount");
-            $table->json("tags");
-            $table->json("tracks");
+            $table->json("tags")->nullable();
+            $table->json("tracks")->nullable();
             $table->foreignId("created_by")->constrained("users");
             // $table->unique(["created_by", "mbid", "name", "artist", "deleted_at"], 'unique_album_per_user');
             $table->softDeletes();

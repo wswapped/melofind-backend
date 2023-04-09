@@ -72,6 +72,26 @@ class AlbumController extends Controller
 
     }
 
+    public function checkFavorite(Request $request)
+    {
+        // Checks if an album is favorite
+        $checkFavorite = AlbumFavorite::where([
+            'created_by' => Auth::id(),
+            'mbid' => $request->input('mbid'),
+            'name' => $request->input('name'),
+            'artist' => $request->input('artist'),
+        ])->first();
+
+        $favorite = false;
+        if($checkFavorite){
+            $favorite = true;
+        }
+        return [
+            'favorite' => $favorite,
+            'id' => $checkFavorite->id??false,
+        ];
+    }
+
     /**
      * Display the specified resource.
      */
@@ -94,5 +114,14 @@ class AlbumController extends Controller
     public function destroy(string $id)
     {
         //
+        // Checks if an artist is favorite before
+        $checkFavorite = AlbumFavorite::find($id);
+
+        if($checkFavorite){
+            $checkFavorite->delete();
+            return response(['message' => 'Album removed from your favorites']);
+        }else{
+            return response(['message' => 'Album is not your favorite'], 400);
+        }
     }
 }

@@ -20,7 +20,7 @@ return new class extends Migration
             $table->string("mbid", 64)->nullable();
             $table->json("similar");
             $table->json("stats");
-            $table->json("tags");
+            $table->json("tags")->nullable();
             $table->boolean("streamable")->default(0);
             $table->foreignId("created_by")->constrained("users");
             // $table->unique(["created_by", "mbid", "name", "artist", "deleted_at"], 'unique_album_per_user');
