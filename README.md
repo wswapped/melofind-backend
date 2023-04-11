@@ -27,6 +27,6 @@ After setting up the environment, its time to run the backend and database
 Installing laravel dependencies by running ```bash
 docker run --rm     -u "$(id -u):$(id -g)"     -v "$(pwd):/var/www/html"     -w /var/www/html     laravelsail/php82-composer:latest     composer install --ignore-platform-reqs```
 
-You can use `./vendor/bin/sail up` to bring the services up
+You can use `./vendor/bin/sail up -d` to bring the services up
 
 You should run the migrations from the laravel container with `php artisan migrate` or using sail from the host system with `./vendor/bin/sail artisan migrate`
