@@ -38,7 +38,13 @@ class AlbumController extends Controller
         $response = curl_exec($curl);
 
         curl_close($curl);
-        return json_decode($response);
+        $resp = json_decode($response);
+
+        // Sometime the api does not respond with mbid
+        if(empty($resp->album->error) && empty($resp->album->mbid)){
+            $resp->album->mbid = $mbid;
+        }
+        return $resp;
     }
 
     /**
